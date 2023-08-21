@@ -1,0 +1,135 @@
+import React, { useState } from 'react';
+import { Container, Paper, Typography, TextField, Button, Box } from '@mui/material';
+import { styled } from '@mui/system';
+import  SideNav from './SideNav';
+
+const RootContainer = styled('div')({
+  background: 'linear-gradient(135deg, #00A99D 0%, #141414 50%, #001F3F 100%)',
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+const ContentContainer = styled('div')({
+  marginTop: '64px', // Adjust as needed
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  flex: 1,
+});
+
+const PaperStyled = styled(Paper)({
+  padding: '32px', // Increase the padding to extend the background
+  alignItems: 'center',
+  background: 'rgba(0, 0, 0, 0.8)',
+  backdropFilter: 'blur(5px)',
+  borderRadius: '8px',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+});
+
+const TransferFunds = () => {
+  const [fromAccount, setFromAccount] = useState('');
+  const [toAccount, setToAccount] = useState('');
+  const [amount, setAmount] = useState('');
+  const [transactionDate, setTransactionDate] = useState('');
+  const [maturityInstructions, setMaturityInstructions] = useState('');
+  const [remarks, setRemarks] = useState('');
+
+  const handleTransfer = (event) => {
+    event.preventDefault();
+
+    // Handle transfer logic here
+    console.log('Transfer details:', {
+      fromAccount,
+      toAccount,
+      amount,
+      transactionDate,
+      maturityInstructions,
+      remarks,
+    });
+  };
+
+  return (
+    <RootContainer>
+      <SideNav />
+      <ContentContainer>
+        <Container maxWidth="xs">
+          <PaperStyled elevation={3}>
+            <Typography variant="h4" color="primary" align="center" gutterBottom>
+              Transfer Money
+            </Typography>
+            <form onSubmit={handleTransfer}>
+              <Box>
+                <TextField
+                  label="From Account"
+                  variant="outlined"
+                  fullWidth
+                  value={fromAccount}
+                  onChange={(e) => setFromAccount(e.target.value)}
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="To Account"
+                  variant="outlined"
+                  fullWidth
+                  value={toAccount}
+                  onChange={(e) => setToAccount(e.target.value)}
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Amount"
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Transaction Date"
+                  variant="outlined"
+                  fullWidth
+                  type="date"
+                  value={transactionDate}
+                  onChange={(e) => setTransactionDate(e.target.value)}
+                  margin="normal"
+                  required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <TextField
+                  label="Maturity Instructions"
+                  variant="outlined"
+                  fullWidth
+                  value={maturityInstructions}
+                  onChange={(e) => setMaturityInstructions(e.target.value)}
+                  margin="normal"
+                />
+                <TextField
+                  label="Remarks"
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows={4}
+                  value={remarks}
+                  onChange={(e) => setRemarks(e.target.value)}
+                  margin="normal"
+                />
+              </Box>
+              <Button type="submit" variant="contained" color="secondary" fullWidth>
+                Transfer
+              </Button>
+            </form>
+          </PaperStyled>
+        </Container>
+      </ContentContainer>
+    </RootContainer>
+  );
+};
+
+export default TransferFunds;
